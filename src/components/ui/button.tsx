@@ -40,13 +40,13 @@ const buttonVariants = cva(
   }
 )
 
-function Button({
+function Button({ // function function name button and paramter ({ object}: paramter types what props hold here and varianta ptrops typ[es])
   className,
   variant = "default",
   size = "default",
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  return (
+  return ( // that function return ( buuttommptivates tag withg data solits colassname )
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
