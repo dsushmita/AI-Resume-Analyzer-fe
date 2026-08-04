@@ -1,5 +1,4 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
-
 // Thrown on any non-2xx so callers can react to the status/message
 export class ApiError extends Error {
   constructor(
