@@ -1,42 +1,20 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { api } from '@/lib/api';
-
-interface Me {
-  sub: string;
-  organizationId: string;
-  role: string;
-}
+import { useLogout } from '@/features/auth/hooks/use-logout';
+import { useMe } from '@/features/auth/hooks/use-me';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { data, isLoading, isError } = useMe();
+  const logout = useLogout();
 
-  const { data, isLoading, isError } = useQuery<Me>({
-    queryKey: ['me'],
-    queryFn: () => api<Me>('/auth/me'),
-    retry: false, // a 401 shouldn't be retried
-  });
-
-  // If the guard rejected us, leave for login
   useEffect(() => {
     if (isError) router.replace('/login');
   }, [isError, router]);
-
-  async function handleLogout() {
-    try {
-      await api('/auth/logout', { method: 'POST' });
-    } catch {
-      // clearing the session regardless of the response
-    }
-    toast.success('Logged out');
-    router.replace('/login');
-  }
 
   return (
     <main className="flex min-h-screen items-center justify-center p-4">
@@ -61,7 +39,7 @@ export default function DashboardPage() {
               </p>
             </div>
           )}
-          <Button variant="outline" className="w-full" onClick={handleLogout}>
+          <Button variant="outline" className="w-full" onClick={logout}>
             Log out
           </Button>
         </CardContent>
