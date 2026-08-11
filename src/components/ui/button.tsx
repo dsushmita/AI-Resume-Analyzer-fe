@@ -40,21 +40,13 @@ const buttonVariants = cva(
   }
 )
 
-<<<<<<< HEAD
 function Button({ // function function name button and paramter ({ object}: paramter types what props hold here and varianta ptrops typ[es])
-=======
-function Button({
->>>>>>> 1505fcf (refactor artitecture setup)
   className,
   variant = "default",
   size = "default",
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-<<<<<<< HEAD
   return ( // that function return ( buuttommptivates tag withg data solits colassname )
-=======
-  return (
->>>>>>> 1505fcf (refactor artitecture setup)
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
