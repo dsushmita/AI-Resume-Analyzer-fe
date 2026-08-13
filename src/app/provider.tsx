@@ -1,16 +1,20 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from 'next-themes';
 import { useState } from 'react';
 import { Toaster } from '@/components/ui/sonner';
+import { makeQueryClient } from '@/lib/queryClient';
+
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    // useState so the client is created once per browser session, not on every render
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(makeQueryClient);
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <Toaster richColors position="top-center" />
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster richColors position="top-center" />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
