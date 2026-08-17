@@ -10,7 +10,10 @@ import { registerSchema, type RegisterValues } from '../auth.schema';
 
 export function useRegister() {
   const router = useRouter();
-  const form = useForm<RegisterValues>({ resolver: zodResolver(registerSchema) });
+const form = useForm<RegisterValues>({
+  resolver: zodResolver(registerSchema),
+  mode: 'onBlur', 
+});
 
   const onSubmit = form.handleSubmit(async (values) => {
     try {

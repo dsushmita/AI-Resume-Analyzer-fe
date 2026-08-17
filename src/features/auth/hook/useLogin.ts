@@ -10,7 +10,7 @@ import { loginSchema, type LoginValues } from '../auth.schema';
 
 export function useLogin() {
   const router = useRouter();
-  const form = useForm<LoginValues>({ resolver: zodResolver(loginSchema) });
+  const form = useForm<LoginValues>({ resolver: zodResolver(loginSchema), mode: 'onBlur' });
 
   const onSubmit = form.handleSubmit(async (values) => {
     try {
